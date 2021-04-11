@@ -26,8 +26,8 @@ public class NoteListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
+        fab.setOnClickListener(view ->
+            startActivity(new Intent(NoteListActivity.this, NoteActivity.class)));
 
         initializeDisplayContent();
     }
