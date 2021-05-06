@@ -17,7 +17,7 @@ import android.widget.Spinner;
 
 import java.util.List;
 
-public class NoteActivity extends AppCompatActivity {
+public class  NoteActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
     public static final String NOTE_POSITION = "com.example.notekeeper.NOTE_POSITION";
     public static final int POSITION_NOT_SET = -1;
