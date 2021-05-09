@@ -3,19 +3,18 @@ package com.example.notekeeper;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
 public class NoteListActivity extends AppCompatActivity {
+
+    private NoteRecyclerAdapter mNoteRecyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +31,9 @@ public class NoteListActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPostResume() {
-        super.onPostResume();
+    protected void onResume(){
+        super.onResume();
+        mNoteRecyclerAdapter.notifyDataSetChanged();
     }
 
     private void initializeDisplayContent() {
@@ -42,7 +42,7 @@ public class NoteListActivity extends AppCompatActivity {
        recyclerNotes.setLayoutManager(notesLayoutManager);
 
        List<NoteInfo> notes = DataManager.getInstance().getNotes();
-       final NoteRecyclerAdapter noteRecyclerAdapter = new NoteRecyclerAdapter(this, notes);
-       recyclerNotes.setAdapter(noteRecyclerAdapter);
+        mNoteRecyclerAdapter = new NoteRecyclerAdapter(this, notes);
+       recyclerNotes.setAdapter(mNoteRecyclerAdapter);
     }
 }
