@@ -24,9 +24,10 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_baseline_assignment_24"
-                app:tint="@android:color/holo_orange_dark" />
+                app:tint="@color/pluralsight_orange" />
 
             <TextView
                 android:id="@+id/text_course"
