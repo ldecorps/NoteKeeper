@@ -13,6 +13,12 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+      <!-- <item name="editTextStyle">@style/WeirdEditText</item> -->
+    </style>
+
+    <style name="WeirdEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:textColor">@android:color/holo_green_dark</item>
+        <item name="android:hint">@android:color/holo_red_dark</item>
     </style>
 
     <style name="Theme.NoteKeeper.NoActionBar">
