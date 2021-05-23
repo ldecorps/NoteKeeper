@@ -91,14 +91,6 @@ public class SettingsActivity extends AppCompatActivity implements
         }
     }
 
-    public static class SyncFragment extends PreferenceFragmentCompat {
-
-        @Override
-        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-            setPreferencesFromResource(R.xml.sync_preferences, rootKey);
-        }
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Respond to the action bar's Up/Home button
