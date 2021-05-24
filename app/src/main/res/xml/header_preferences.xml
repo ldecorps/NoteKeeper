@@ -22,4 +22,13 @@
         app:useSimpleSummaryProvider="true"
         />
 
+    <ListPreference
+        android:defaultValue="@string/pref_default_favorite_social"
+        android:entries="@array/pref_entries_favorite_social"
+        android:entryValues="@array/pref_values_favorite_social"
+        android:key="user_favorite_social"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        android:title="@string/pref_title_favorite_social"/>
+
 </PreferenceScreen>
