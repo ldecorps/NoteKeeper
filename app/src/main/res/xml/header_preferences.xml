@@ -29,6 +29,7 @@
         android:key="user_favorite_social"
         android:negativeButtonText="@null"
         android:positiveButtonText="@null"
-        android:title="@string/pref_title_favorite_social"/>
+        android:title="@string/pref_title_favorite_social"
+        app:useSimpleSummaryProvider="true"/>
 
 </PreferenceScreen>
