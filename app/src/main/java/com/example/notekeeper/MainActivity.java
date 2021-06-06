@@ -2,6 +2,7 @@ package com.example.notekeeper;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     private GridLayoutManager mCoursesLayoutManager;
     private CourseRecyclerAdapter mCourseRecyclerAdapter;
     private LinearLayoutManager mNotesLayoutManager;
+    private NoteKeeperOpenHelper mDbOpenHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,8 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         setContentView(binding.getRoot());
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(binding.appBarMain.toolbar);
+        mDbOpenHelper = new NoteKeeperOpenHelper(this);
+
         binding.appBarMain.fab.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, NoteActivity.class)));
 
         // Todo: get drawer default values to work before even opening the settings screen
@@ -125,6 +129,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         mRecyclerItems.setLayoutManager(mNotesLayoutManager);
         mRecyclerItems.setAdapter(mNoteRecyclerAdapter);
 
+        SQLiteDatabase db = mDbOpenHelper.getReadableDatabase();
         selectNavigationMenuItem(R.id.nav_notes);
     }
 
@@ -173,4 +178,9 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onDestroy() {
+        mDbOpenHelper.close();
+        super.onDestroy();
+    }
 }
