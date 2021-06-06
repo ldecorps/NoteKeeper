@@ -22,7 +22,21 @@ public class NoteKeeperOpenHelper extends SQLiteOpenHelper {
         worker.insertCourses();
         worker.insertSampleNotes();
     }
+    /*
 
+    export PATH="/Users/ldecorps/Library/Android/sdk/platform-tools/:/Users/ldecorps/Downloads/sqlite-tools-osx-x86-3350500/:$PATH"
+
+    /Users/ldecorps/Library/Android/sdk/platform-tools/adb exec-out "run-as com.example.notekeeper cat databases/NoteKeeper.db > /Users/ldecorps/AndroidStudioProjects/NoteKeeper/NoteKeeper.db"
+
+    /Users/ldecorps/Downloads/sqlite-tools-osx-x86-3350500/sqlite3 /Users/ldecorps/AndroidStudioProjects/NoteKeeper/NoteKeeper.db
+
+    /Users/ldecorps/Downloads/sqlite-tools-osx-x86-3350500/sqlite3 /Users/ldecorps/Downloads/android-managing-app-data-sqlite/01/exercise-files/after/NoteKeeper/NoteKeeper.db
+
+    rm NoteKeeper.db*
+    adb exec-out "run-as com.example.notekeeper cat databases/NoteKeeper.db " > NoteKeeper.db
+    sqlite3  NoteKeeper.db
+
+*/
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
