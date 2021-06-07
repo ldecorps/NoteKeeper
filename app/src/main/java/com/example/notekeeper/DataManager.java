@@ -27,13 +27,16 @@ public class DataManager {
         String[] courseColumns = {
                 CourseInfoEntry.COLUMN_COURSE_ID
                 , CourseInfoEntry.COLUMN_COURSE_TITLE};
-        Cursor courseCursor = db.query(CourseInfoEntry.TABLE_NAME, courseColumns, null, null, null, null, null);
+        Cursor courseCursor = db.query(CourseInfoEntry.TABLE_NAME, courseColumns, null, null, null, null
+                ,  CourseInfoEntry.COLUMN_COURSE_TITLE + " DESC");
         loadCoursesFromDatabase(courseCursor);
         String[] noteColumns = {
                 NoteInfoEntry.COLUMN_NOTE_TITLE
                 , NoteInfoEntry.COLUMN_NOTE_TEXT
                 , NoteInfoEntry.COLUMN_COURSE_ID};
-        Cursor noteCursor = db.query(NoteInfoEntry.TABLE_NAME, noteColumns, null, null, null, null, null);
+        String noteOrderBy =NoteInfoEntry.COLUMN_COURSE_ID + "," + NoteInfoEntry.COLUMN_NOTE_TITLE;
+        Cursor noteCursor = db.query(NoteInfoEntry.TABLE_NAME, noteColumns, null, null, null, null
+                , noteOrderBy);
         loadNotesFromDatabase(noteCursor);
     }
 
