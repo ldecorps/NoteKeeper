@@ -33,7 +33,8 @@ public class DataManager {
         String[] noteColumns = {
                 NoteInfoEntry.COLUMN_NOTE_TITLE
                 , NoteInfoEntry.COLUMN_NOTE_TEXT
-                , NoteInfoEntry.COLUMN_COURSE_ID};
+                , NoteInfoEntry.COLUMN_COURSE_ID
+                , NoteInfoEntry._ID};
         String noteOrderBy =NoteInfoEntry.COLUMN_COURSE_ID + "," + NoteInfoEntry.COLUMN_NOTE_TITLE;
         Cursor noteCursor = db.query(NoteInfoEntry.TABLE_NAME, noteColumns, null, null, null, null
                 , noteOrderBy);
@@ -44,16 +45,18 @@ public class DataManager {
         int noteTitlePos = cursor.getColumnIndex(NoteInfoEntry.COLUMN_NOTE_TITLE);
         int noteTextPos = cursor.getColumnIndex(NoteInfoEntry.COLUMN_NOTE_TEXT);
         int courseIdPos = cursor.getColumnIndex(NoteInfoEntry.COLUMN_COURSE_ID);
+        int idPos = cursor.getColumnIndex(NoteInfoEntry._ID);
 
         DataManager dm =getInstance();
         dm.mNotes.clear();
         while (cursor.moveToNext()){
             String noteTitle = cursor.getString(noteTitlePos);
             String noteText = cursor.getString(noteTextPos);
-            String courseId =cursor.getString(courseIdPos);
-            CourseInfo courseInfo = dm.getCourse(courseId);
+            String courseId = cursor.getString(courseIdPos);
+            int id = cursor.getInt(idPos);
 
-            NoteInfo note = new NoteInfo(courseInfo, noteTitle, noteText);
+            CourseInfo noteCourse =dm.getCourse(courseId);
+            NoteInfo note = new NoteInfo(id, noteCourse, noteTitle, noteText);
             dm.mNotes.add(note);
         }
         cursor.close();
