@@ -75,6 +75,7 @@ public class  NoteActivity extends AppCompatActivity {
         mAdapterCourses.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinnerCourses.setAdapter(mAdapterCourses);
 
+        loadCourseData();
         readDisplayStateValues();
         saveOriginalNoteValues();
 
@@ -84,6 +85,20 @@ public class  NoteActivity extends AppCompatActivity {
         if (!mIsNewNote)
             loadNodeData();
         Log.d(TAG, "onCreate");
+    }
+
+    private void loadCourseData() {
+        SQLiteDatabase db =mDbOpenHelper.getReadableDatabase();
+        String[] courseColumns ={
+            CourseInfoEntry.COLUMN_COURSE_TITLE,
+            CourseInfoEntry.COLUMN_COURSE_ID,
+                CourseInfoEntry._ID
+        };
+
+        Cursor cursor = db.query(CourseInfoEntry.TABLE_NAME, courseColumns, null, null,
+                null, null, CourseInfoEntry.COLUMN_COURSE_TITLE);
+
+        mAdapterCourses.changeCursor(cursor);
     }
 
     private void loadNodeData() {
