@@ -2,6 +2,7 @@ package com.example.notekeeper;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,17 +10,30 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
-
 public class NoteRecyclerAdapter extends RecyclerView.Adapter<NoteRecyclerAdapter.ViewHolder>{
     private final Context mContext;
     private final LayoutInflater mLayoutInflater;
-    private final List<NoteInfo> mNotes;
+    private Cursor mCursor;
 
-    public NoteRecyclerAdapter(Context context, List<NoteInfo> notes) {
+    public NoteRecyclerAdapter(Context context, Cursor cursor) {
         mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
-        mNotes = notes;
+        mCursor = cursor;
+        populateColumnPositions();
+    }
+
+    private void populateColumnPositions() {
+        if (null == mCursor)
+            return;
+        // todo get column indexes from mCursor
+    }
+
+    private void changeCursor(Cursor cursor){
+        if (null != mCursor)
+            mCursor.close();
+        mCursor = cursor;
+        populateColumnPositions();
+        notifyDataSetChanged();
     }
 
     @Override
