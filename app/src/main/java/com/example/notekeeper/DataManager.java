@@ -25,7 +25,8 @@ public class DataManager {
     public static void loadFromDatabase(NoteKeeperOpenHelper dbHelper){
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String[] courseColumns = {
-                CourseInfoEntry.COLUMN_COURSE_ID
+                 CourseInfoEntry._ID
+                , CourseInfoEntry.COLUMN_COURSE_ID
                 , CourseInfoEntry.COLUMN_COURSE_TITLE};
         Cursor courseCursor = db.query(CourseInfoEntry.TABLE_NAME, courseColumns, null, null, null, null
                 ,  CourseInfoEntry.COLUMN_COURSE_TITLE + " DESC");
