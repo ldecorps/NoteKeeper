@@ -35,7 +35,7 @@ public class NoteRecyclerAdapter extends RecyclerView.Adapter<NoteRecyclerAdapte
         mIdPos = mCursor.getColumnIndex(NoteInfoEntry._ID);
     }
 
-    private void changeCursor(Cursor cursor){
+    public void changeCursor(Cursor cursor){
         if (null != mCursor)
             mCursor.close();
         mCursor = cursor;
