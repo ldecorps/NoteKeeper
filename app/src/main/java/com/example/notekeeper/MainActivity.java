@@ -209,10 +209,8 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
                     final String[] noteColumns = {
                             NoteInfoEntry.getQName(NoteInfoEntry._ID),
                             NoteInfoEntry.COLUMN_NOTE_TITLE,
-                            NoteInfoEntry.getQName(NoteInfoEntry.COLUMN_COURSE_ID),
                             CourseInfoEntry.COLUMN_COURSE_TITLE};
-                    final String noteOrderBy = NoteInfoEntry.COLUMN_COURSE_ID +
-                            "," + NoteInfoEntry.COLUMN_NOTE_TITLE;
+                    final String noteOrderBy = CourseInfoEntry.COLUMN_COURSE_TITLE;
 
                     // note_info join course_info
                     String tablesWithJoin = NoteInfoEntry.TABLE_NAME

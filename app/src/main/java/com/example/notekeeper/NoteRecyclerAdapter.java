@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notekeeper.NoteKeeperDatabaseContract.NoteInfoEntry;
 
+import static com.example.notekeeper.NoteKeeperDatabaseContract.*;
+
 public class NoteRecyclerAdapter extends RecyclerView.Adapter<NoteRecyclerAdapter.ViewHolder>{
     private final Context mContext;
     private final LayoutInflater mLayoutInflater;
@@ -30,7 +32,7 @@ public class NoteRecyclerAdapter extends RecyclerView.Adapter<NoteRecyclerAdapte
     private void populateColumnPositions() {
         if (null == mCursor)
             return;
-        mCoursePos = mCursor.getColumnIndex(NoteInfoEntry.COLUMN_COURSE_ID);
+        mCoursePos = mCursor.getColumnIndex(CourseInfoEntry.COLUMN_COURSE_TITLE);
         mNoteTitlePos = mCursor.getColumnIndex(NoteInfoEntry.COLUMN_NOTE_TITLE);
         mIdPos = mCursor.getColumnIndex(NoteInfoEntry._ID);
     }
