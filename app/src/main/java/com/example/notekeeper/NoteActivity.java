@@ -30,7 +30,7 @@ public class  NoteActivity extends AppCompatActivity implements LoaderManager.Lo
     private final String TAG = getClass().getSimpleName();
     public static final String NOTE_ID = "com.example.notekeeper.NOTE_POSITION";
     public static final int ID_NOT_SET = -1;
-    private NoteInfo mNote = new NoteInfo(DataManager.getInstance().getCourses().get(0), "", "");;
+    private NoteInfo mNote = new NoteInfo(DataManager.getInstance().getCourses().get(0), "", "");
     private boolean mIsNewNote;
     private Spinner mSpinnerCourses;
     private EditText mTextNoteTitle;
@@ -104,15 +104,6 @@ public class  NoteActivity extends AppCompatActivity implements LoaderManager.Lo
                 null, null, CourseInfoEntry.COLUMN_COURSE_TITLE);
 
         mAdapterCourses.changeCursor(cursor);
-    }
-
-    private void loadNodeData() {
-
-        mCourseIdPos = mNoteCursor.getColumnIndex(NoteInfoEntry.COLUMN_COURSE_ID);
-        mNoteTitlePos = mNoteCursor.getColumnIndex(NoteInfoEntry.COLUMN_NOTE_TITLE);
-        mNoteTextPos = mNoteCursor.getColumnIndex(NoteInfoEntry.COLUMN_NOTE_TEXT);
-        mNoteCursor.moveToNext();
-        displayNote();
     }
 
     private void saveOriginalNoteValues() {
@@ -289,11 +280,25 @@ public class  NoteActivity extends AppCompatActivity implements LoaderManager.Lo
 
     @Override
     public void onLoadFinished(@NonNull @NotNull Loader<Cursor> loader, Cursor data) {
+        if (LOADER_NOTES == loader.getId())
+            loadFinishedNotes(data);
+    }
 
+    private void loadFinishedNotes(Cursor data) {
+        mNoteCursor = data;
+        mCourseIdPos = mNoteCursor.getColumnIndex(NoteInfoEntry.COLUMN_COURSE_ID);
+        mNoteTitlePos = mNoteCursor.getColumnIndex(NoteInfoEntry.COLUMN_NOTE_TITLE);
+        mNoteTextPos = mNoteCursor.getColumnIndex(NoteInfoEntry.COLUMN_NOTE_TEXT);
+        mNoteCursor.moveToNext();
+        displayNote();
     }
 
     @Override
     public void onLoaderReset(@NonNull @NotNull Loader<Cursor> loader) {
+        if (LOADER_NOTES == loader.getId()){
+            if (null != mNoteCursor)
+                mNoteCursor.close();
+        }
 
     }
 }
