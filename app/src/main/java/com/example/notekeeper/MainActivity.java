@@ -34,6 +34,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+import static com.example.notekeeper.NoteKeeperDatabaseContract.*;
+
 public class MainActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener,
         LoaderManager.LoaderCallbacks<Cursor> {
     private static final int LOADER_NOTES = 0;
@@ -210,7 +212,13 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
                             NoteInfoEntry.COLUMN_COURSE_ID};
                     final String noteOrderBy = NoteInfoEntry.COLUMN_COURSE_ID +
                             "," + NoteInfoEntry.COLUMN_NOTE_TITLE;
-                    return db.query(NoteInfoEntry.TABLE_NAME, noteColumns,
+
+                    // note_info join course_info
+                    String tablesWithJoin = NoteInfoEntry.TABLE_NAME
+                            + " JOIN " + CourseInfoEntry.TABLE_NAME
+                            + " ON " + NoteInfoEntry.TABLE_NAME + "." + NoteInfoEntry.COLUMN_COURSE_ID
+                            + " = " + CourseInfoEntry.TABLE_NAME + "." + CourseInfoEntry.COLUMN_COURSE_ID;
+                    return db.query(tablesWithJoin, noteColumns,
                             null, null, null, null, noteOrderBy);
                 }
             };
