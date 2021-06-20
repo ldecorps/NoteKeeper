@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 
 import com.example.notekeeper.NoteKeeperDatabaseContract.CourseInfoEntry;
@@ -106,19 +107,7 @@ public class  NoteActivity extends AppCompatActivity implements LoaderManager.Lo
     }
 
     private void loadNodeData() {
-        SQLiteDatabase db = mDbOpenHelper.getReadableDatabase();
-        String courseId = "android_intents";
-        String titleStart = "dynamic";
-        String selection = NoteInfoEntry._ID + " = ?";
-        String[] selectionArgs = { Integer.toString(mNoteId) } ;
 
-        String[] noteColumns = {
-                NoteInfoEntry.COLUMN_COURSE_ID,
-                NoteInfoEntry.COLUMN_NOTE_TITLE,
-                NoteInfoEntry.COLUMN_NOTE_TEXT
-        };
-        mNoteCursor = db.query(NoteInfoEntry.TABLE_NAME, noteColumns, selection, selectionArgs,
-                null, null, null);
         mCourseIdPos = mNoteCursor.getColumnIndex(NoteInfoEntry.COLUMN_COURSE_ID);
         mNoteTitlePos = mNoteCursor.getColumnIndex(NoteInfoEntry.COLUMN_NOTE_TITLE);
         mNoteTextPos = mNoteCursor.getColumnIndex(NoteInfoEntry.COLUMN_NOTE_TEXT);
@@ -271,7 +260,31 @@ public class  NoteActivity extends AppCompatActivity implements LoaderManager.Lo
     @NotNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable @org.jetbrains.annotations.Nullable Bundle args) {
-        return null;
+        CursorLoader loader = null;
+        if (LOADER_NOTES == id)
+            loader = createLoaderNotes();
+        return loader;
+    }
+
+    private CursorLoader createLoaderNotes() {
+        return new CursorLoader(this){
+            @Override
+            public Cursor loadInBackground() {
+                SQLiteDatabase db = mDbOpenHelper.getReadableDatabase();
+                String courseId = "android_intents";
+                String titleStart = "dynamic";
+                String selection = NoteInfoEntry._ID + " = ?";
+                String[] selectionArgs = { Integer.toString(mNoteId) } ;
+
+                String[] noteColumns = {
+                        NoteInfoEntry.COLUMN_COURSE_ID,
+                        NoteInfoEntry.COLUMN_NOTE_TITLE,
+                        NoteInfoEntry.COLUMN_NOTE_TEXT
+                };
+                return db.query(NoteInfoEntry.TABLE_NAME, noteColumns, selection, selectionArgs,
+                        null, null, null);
+            }
+        };
     }
 
     @Override
