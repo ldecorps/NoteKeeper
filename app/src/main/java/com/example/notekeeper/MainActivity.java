@@ -212,7 +212,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
                             CourseInfoEntry.COLUMN_COURSE_TITLE};
                     final String noteOrderBy = CourseInfoEntry.COLUMN_COURSE_TITLE;
 
-                    // note_info join course_info
+                    // note_info JOIN course_info
                     String tablesWithJoin = NoteInfoEntry.TABLE_NAME
                             + " JOIN " + CourseInfoEntry.TABLE_NAME
                             + " ON " + NoteInfoEntry.getQName(NoteInfoEntry.COLUMN_COURSE_ID)
